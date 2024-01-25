@@ -1,4 +1,4 @@
-Great! Based on the information you've provided, I'll draft a simple README for your TDND project:
+EDIT: lol I forgot to erase the generated AI bullshit
 
 ---
 
