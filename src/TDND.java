@@ -4,6 +4,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class TDND {
 
+    //diceRoller function that actually rolls the dice(s)
     public static int diceRoller(int howMany, int max, int bonus, String bonusType) {
         int finalRoll = 0;
         int currentRoll;
@@ -33,11 +34,8 @@ public class TDND {
         return finalRoll;
     }
 
-    public static void main(String[] args) {
-        Scanner UserInput = new Scanner(System.in);
-
-        System.out.print("Enter dice amount, and dice type (format '1d6+bonus') :");
-        String userInput = UserInput.nextLine();
+    //inputDecipher that splits user's input to roll information
+    public static void inputDecipher(String userInput){
 
         int diceAmount;
         int diceType;
@@ -64,12 +62,17 @@ public class TDND {
             diceType = Integer.parseInt(pieces[1]);
             bonusType = "none";
         }
-
-
         System.out.println(diceAmount + " " + diceType);
-
-
         System.out.println("Final roll : " + diceRoller(diceAmount, diceType, bonusVariable, bonusType));
+    }
+
+    public static void main(String[] args) {
+        Scanner UserInput = new Scanner(System.in);
+
+        System.out.print("Enter dice amount, and dice type (format '1d6+bonus') :");
+        String userInput = UserInput.nextLine();
+
+        inputDecipher(userInput);
 
 
     }
