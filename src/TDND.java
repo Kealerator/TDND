@@ -49,21 +49,21 @@ public class TDND {
             diceAmount = Integer.parseInt(pieces[0]);           //0 is the number of dice rolls
             diceType = Integer.parseInt(pieces[1]);             //1 is the type of dice (4,6,8,20,12,20,100)
             bonusVariable = Integer.parseInt(pieces[2]);        //2 is the bonus amount
-            bonusType = "plus";
+            bonusType = "+";
         } else if (userInput.contains("-")) {                   // the input has "-" so we will substract the bonus
             String[] pieces = userInput.split("[d-]");   // split the bonus, and the dice amount & type
             diceAmount = Integer.parseInt(pieces[0]);          // set the input values to int variables so
             diceType = Integer.parseInt(pieces[1]);            // you can just throw the values to function
             bonusVariable = Integer.parseInt(pieces[2]);
-            bonusType = "minus";
+            bonusType = "-";
         } else {
             String[] pieces = userInput.split("d");     // the "[]" are removed because we aren't splitting the
             diceAmount = Integer.parseInt(pieces[0]);         // plus or minus.
             diceType = Integer.parseInt(pieces[1]);
             bonusType = "none";
         }
-        System.out.println(diceAmount + " " + diceType);
-        System.out.println("Final roll : " + diceRoller(diceAmount, diceType, bonusVariable, bonusType));
+        System.out.println(diceAmount + "d" + diceType);
+        System.out.println("Final roll: " + diceRoller(diceAmount, diceType, bonusVariable, bonusType));
     }
 
     public static boolean inputValidator(String input) {
