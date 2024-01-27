@@ -1,14 +1,7 @@
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 
-
-/**
- * @author mattirundelin
- */
 public class TDND {
 
     public static int diceRoller(int howMany, int max, int bonus, String bonusType) {
@@ -76,7 +69,7 @@ public class TDND {
         System.out.println(diceAmount + " " + diceType);
 
 
-        System.out.println("Roll : " + diceRoller(diceAmount, diceType, bonusVariable, bonusType));
+        System.out.println("Final roll : " + diceRoller(diceAmount, diceType, bonusVariable, bonusType));
 
 
     }
