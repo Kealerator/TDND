@@ -66,13 +66,67 @@ public class TDND {
         System.out.println("Final roll : " + diceRoller(diceAmount, diceType, bonusVariable, bonusType));
     }
 
+    public static boolean inputValidator(String input) {
+        boolean valid = true;
+        char dice = 'd';
+        char plus = '+';
+        char minus = '-';
+        int count = 0;
+
+        //first, check if there is too many characters d, +, or -.
+        // d searcher
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == dice) {
+                count++;
+            } else if (count > 1) {
+                valid = false;
+            }
+        }
+
+        count = 0;
+
+        // + searcher
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == plus) {
+                count++;
+            }else if (count == 0) {
+                valid = true;
+            }else if (count > 1) {
+                valid = false;
+            }
+        }
+
+        count = 0;
+
+        // - searcher
+        for (int i = 0; i < input.length(); i++) {
+            if (input.charAt(i) == minus) {
+                count++;
+            }else if (count == 0) {
+                valid = true;
+            }else if (count > 1) {
+                valid = false;
+            }
+        }
+
+        return valid;
+    }
+
     public static void main(String[] args) {
         Scanner UserInput = new Scanner(System.in);
 
+        // request for user input
         System.out.print("Enter dice amount, and dice type (format '1d6+bonus') :");
         String userInput = UserInput.nextLine();
 
-        inputDecipher(userInput);
+        if(inputValidator(userInput)){
+            inputDecipher(userInput);
+        } else {
+            System.out.println("Incorrect input.");
+        }
+
+
+
 
 
     }
