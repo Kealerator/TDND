@@ -71,42 +71,52 @@ public class TDND {
         char dice = 'd';
         char plus = '+';
         char minus = '-';
-        int count = 0;
+        int dCount = 0;
+        int pCount = 0;
+        int mCount = 0;
 
-        //first, check if there is too many characters d, +, or -.
+
+        //First, check if there is too many characters d, +, or -.
         // d searcher
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == dice) {
-                count++;
-            } else if (count > 1) {
-                valid = false;
+                dCount++;
             }
         }
-
-        count = 0;
 
         // + searcher
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == plus) {
-                count++;
-            }else if (count == 0) {
-                valid = true;
-            }else if (count > 1) {
-                valid = false;
+                pCount++;
             }
         }
-
-        count = 0;
 
         // - searcher
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == minus) {
-                count++;
-            }else if (count == 0) {
-                valid = true;
-            }else if (count > 1) {
+                mCount++;
+            }
+        }
+
+        if (dCount > 1 || pCount > 1 || mCount > 1) {
+            valid = false;
+        }
+
+
+        //Second, check if the dice type is correct (d4, d6, d10, d12, d20, d100)
+        //but if until now the valid is false, there is no reason to check this.
+
+        if(valid){
+
+            String[] pieces = input.split("d");
+            var diceType = Integer.parseInt(pieces[1]);
+
+            if (diceType != 6 && diceType != 8) {
                 valid = false;
             }
+
+
+
         }
 
         return valid;
@@ -115,15 +125,20 @@ public class TDND {
     public static void main(String[] args) {
         Scanner UserInput = new Scanner(System.in);
 
-        // request for user input
-        System.out.print("Enter dice amount, and dice type (format '1d6+bonus') :");
-        String userInput = UserInput.nextLine();
+        while (true) {
+            // request for user input
+            System.out.print("Enter dice amount, and dice type (format '1d6+bonus') :");
+            String userInput = UserInput.nextLine();
 
-        if(inputValidator(userInput)){
-            inputDecipher(userInput);
-        } else {
-            System.out.println("Incorrect input.");
+            if (inputValidator(userInput)) {
+                inputDecipher(userInput);
+                break;
+            } else {
+                System.out.println("Incorrect input.");
+            }
         }
+
+
 
 
 
