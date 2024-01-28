@@ -1,15 +1,33 @@
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
-import javax.swing.JFrame;
+import java.util.ArrayList;
 
 
 public class TDND {
 
-    JFrame window;
+    public static ArrayList<Integer> diceRollReport = new ArrayList<>();
+
+    //user input request has an own method now
+    public static void diceInputRequest(){
+        Scanner UserInput = new Scanner(System.in);
+        while (true) {
+            // request for user input
+            System.out.print("Enter dice amount, and dice type (format '1d6+bonus') :");
+            String userInput = UserInput.nextLine();
+
+            if (inputValidator(userInput)) {
+                inputDecipher(userInput);
+                break;
+            } else {
+                System.out.println("Incorrect input.");
+            }
+        }
+
+    }
 
     //diceRoller function that actually rolls the dice(s)
-    public static int diceRoller(int howMany, int max, int bonus, String bonusType) {
+    public static void diceRoller(int howMany, int max, int bonus, String bonusType) {
         int finalRoll = 0;
         int currentRoll;
 
@@ -17,25 +35,46 @@ public class TDND {
         for (int i = 0; i < howMany; i++) {
             currentRoll = ThreadLocalRandom.current().nextInt(1, max + 1);
             finalRoll = finalRoll + currentRoll;
-            System.out.println("roll " + (i + 1) + ": " + currentRoll);
+            diceRollReport.add(currentRoll);
         }
 
         // if structure to define the bonus factor (plus, minus, none)
         // and adds it to the final roll
         switch (bonusType) {
-            case "+" -> {
-                System.out.println("Bonus: +" + bonus);
+            case "+"-> {
                 finalRoll = bonus + finalRoll;
+                diceRollReport.add(bonus);
             }
-            case "-" -> {
-                System.out.println("Bonus: -" + bonus);
+            case "-"-> {
                 finalRoll = finalRoll - bonus;
+                diceRollReport.add(bonus* -1);
             }
-            case "none" -> System.out.println("Bonus: none");
+            case "none"-> {
+                diceRollReport.add(0);
+            }
         }
 
-        //returning the final roll
-        return finalRoll;
+        //log the final roll
+        diceRollReport.add(finalRoll);
+
+    }
+
+
+    public static void printDiceRollReport(){
+        for (int i = 0; i < diceRollReport.size(); i++) {
+
+            if (i == diceRollReport.size() - 2){
+                if(diceRollReport.get(i) > 0){
+                    System.out.println("Bonus: +" + diceRollReport.get(i));
+                } else {
+                    System.out.println("Bonus: " + diceRollReport.get(i));
+                }
+            } else if (i == diceRollReport.size() - 1) {
+                System.out.println("Final roll: " + diceRollReport.get(i));
+            } else {
+                System.out.println("Roll #" + (i + 1) + ": " + diceRollReport.get(i));
+            }
+        }
     }
 
     //inputDecipher that splits user's input to roll information
@@ -75,8 +114,8 @@ public class TDND {
             diceType = Integer.parseInt(pieces[1]);
             bonusType = "none";
         }
-        System.out.println(diceAmount + "d" + diceType);
-        System.out.println("Final roll: " + diceRoller(diceAmount, diceType, bonusVariable, bonusType));
+
+        diceRoller(diceAmount, diceType, bonusVariable, bonusType);
     }
 
     public static boolean inputValidator(String input) {
@@ -201,18 +240,8 @@ public class TDND {
 
     public static void main(String[] args) {
 
-        Scanner UserInput = new Scanner(System.in);
-        while (true) {
-            // request for user input
-            System.out.print("Enter dice amount, and dice type (format '1d6+bonus') :");
-            String userInput = UserInput.nextLine();
+        diceInputRequest();
+        printDiceRollReport();
 
-            if (inputValidator(userInput)) {
-                inputDecipher(userInput);
-                break;
-            } else {
-                System.out.println("Incorrect input.");
-            }
-        }
     }
 }
