@@ -106,18 +106,7 @@ public class TDND {
         //Second, check if the dice type is correct (d4, d6, d10, d12, d20, d100)
         //but if until now the valid is false, there is no reason to check this.
 
-        if(valid){
 
-            String[] pieces = input.split("d");
-            var diceType = Integer.parseInt(pieces[1]);
-
-            if (diceType != 6 && diceType != 8) {
-                valid = false;
-            }
-
-
-
-        }
 
         return valid;
     }
