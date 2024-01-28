@@ -99,6 +99,10 @@ public class TDND {
         if (dCount > 1 || pCount > 1 || mCount > 1) {
             valid = false;
         }
+        if (dCount == 0 || pCount == 0 || mCount == 0) {
+            valid = false;
+        }
+
 
         // Second, we need to check if there even is a die type
         // until now if the valid is false, there is no reason to check this.
