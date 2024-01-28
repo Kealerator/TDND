@@ -83,14 +83,12 @@ public class TDND {
                 dCount++;
             }
         }
-
         // + searcher
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == plus) {
                 pCount++;
             }
         }
-
         // - searcher
         for (int i = 0; i < input.length(); i++) {
             if (input.charAt(i) == minus) {
@@ -106,7 +104,31 @@ public class TDND {
         //Second, check if the dice type is correct (d4, d6, d10, d12, d20, d100)
         //but if until now the valid is false, there is no reason to check this.
 
+        if(valid){
+            int [] diceTypesAllowed = {4, 6, 8, 10, 12, 20, 100};
+            int inputDiceType;
+            // Split the input to find out the dice type
+            // Had to create a huge if structure to define if there is a "+" or "-"
+            if(input.contains("+")) {
+                String[] pieces = input.split("[d+]");
+                inputDiceType = Integer.parseInt(pieces[1]);
+            } else if (input.contains("-")) {
+                String[] pieces = input.split("[d-]");
+                inputDiceType = Integer.parseInt(pieces[1]);
+            } else {
+                String[] pieces = input.split("d");
+                inputDiceType = Integer.parseInt(pieces[1]);
+            }
 
+            for (int j : diceTypesAllowed) {
+                if (j != inputDiceType) {
+                    valid = false;
+                } else {
+                    valid = true;
+                    break;
+                }
+            }
+        }
 
         return valid;
     }

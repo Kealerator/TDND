@@ -26,7 +26,7 @@ To use the current version of TDND, simply interact with the provided class file
 
 ## Known Issues
 
-The project is in the early stages, and input validation is not implemented. Users are advised to input valid values to avoid unexpected behavior.
+The project is in the early stages, and input validation is in development. Users are advised to input valid values to avoid unexpected behavior.
 
 ## How to Contribute
 
