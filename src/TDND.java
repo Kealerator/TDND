@@ -1,9 +1,12 @@
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
+import javax.swing.JFrame;
 
 
 public class TDND {
+
+    JFrame window;
 
     //diceRoller function that actually rolls the dice(s)
     public static int diceRoller(int howMany, int max, int bonus, String bonusType) {
@@ -197,8 +200,8 @@ public class TDND {
     }
 
     public static void main(String[] args) {
-        Scanner UserInput = new Scanner(System.in);
 
+        Scanner UserInput = new Scanner(System.in);
         while (true) {
             // request for user input
             System.out.print("Enter dice amount, and dice type (format '1d6+bonus') :");
@@ -211,12 +214,5 @@ public class TDND {
                 System.out.println("Incorrect input.");
             }
         }
-
-
-
-
-
-
-
     }
 }
