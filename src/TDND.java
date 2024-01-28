@@ -47,18 +47,27 @@ public class TDND {
         // different .split arguments to separate the bonus value from the dice amount and type
         if (userInput.contains("+")) {
             String[] pieces = userInput.split("[d+]");    // it's easier to just read from input what bonus type
+                if (pieces[0].isEmpty()){
+                    pieces[0] = "1";
+                }
             diceAmount = Integer.parseInt(pieces[0]);           //0 is the number of dice rolls
             diceType = Integer.parseInt(pieces[1]);             //1 is the type of dice (4,6,8,20,12,20,100)
             bonusVariable = Integer.parseInt(pieces[2]);        //2 is the bonus amount
             bonusType = "+";
         } else if (userInput.contains("-")) {                   // the input has "-" so we will subtract the bonus
             String[] pieces = userInput.split("[d-]");   // split the bonus, and the dice amount & type
+                if (pieces[0].isEmpty()){
+                    pieces[0] = "1";
+                }
             diceAmount = Integer.parseInt(pieces[0]);          // set the input values to int variables so
             diceType = Integer.parseInt(pieces[1]);            // you can just throw the values to function
             bonusVariable = Integer.parseInt(pieces[2]);
             bonusType = "-";
         } else {
             String[] pieces = userInput.split("d");     // the "[]" are removed because we aren't splitting the
+                if (pieces[0].isEmpty()){
+                    pieces[0] = "1";
+                }
             diceAmount = Integer.parseInt(pieces[0]);         // plus or minus.
             diceType = Integer.parseInt(pieces[1]);
             bonusType = "none";
@@ -92,7 +101,7 @@ public class TDND {
         // First, scan user input string if there is any numbers before and after 'd'
             if (input.contains("d")) {
                 String[] pieces = input.split("d");
-                if (Pattern.matches("[a-zA-Z]+", pieces[0])) {
+                if (Pattern.matches("[a-z A-Z]+", pieces[0])) {
                     valid = false;
                 }
                 if (pieces.length > 1){
