@@ -100,9 +100,32 @@ public class TDND {
             valid = false;
         }
 
+        // Second, we need to check if there even is a die type
+        // until now if the valid is false, there is no reason to check this.
+        if (valid){
 
-        //Second, check if the dice type is correct (d4, d6, d10, d12, d20, d100)
-        //but if until now the valid is false, there is no reason to check this.
+            if(input.contains("+")) {
+                String[] pieces = input.split("[d+]");
+                if (pieces[1].isEmpty()){
+                    valid = false;
+                }
+            } else if (input.contains("-")) {
+                String[] pieces = input.split("[d-]");
+                if (pieces[1].isEmpty()){
+                    valid = false;
+                }
+            } else {
+                String[] pieces = input.split("d");
+                if (pieces[1].isEmpty()){
+                    valid = false;
+                }
+            }
+
+        }
+
+
+        //Third, check if the dice type is correct (d4, d6, d10, d12, d20, d100)
+        //until now if the valid is false, there is no reason to check this.
 
         if(valid){
             int [] diceTypesAllowed = {4, 6, 8, 10, 12, 20, 100};
