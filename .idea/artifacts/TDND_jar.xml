@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="TDND:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/TDND_jar</output-path>
+    <root id="archive" name="TDND.jar">
+      <element id="module-output" name="TDND" />
+      <element id="extracted-dir" path="$MAVEN_REPOSITORY$/org/jetbrains/annotations/24.0.0/annotations-24.0.0.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>
