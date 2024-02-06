@@ -8,6 +8,17 @@ public class TDND {
 
     public static ArrayList<Integer> diceRollReport = new ArrayList<>();
 
+
+
+    public static void main(String[] args) {
+
+        diceInputRequest();
+        printDiceRollReport();
+
+    }
+
+    
+
     //user input request has an own method now
     public static void diceInputRequest(){
         Scanner UserInput = new Scanner(System.in);
@@ -41,15 +52,15 @@ public class TDND {
         // if structure to define the bonus factor (plus, minus, none)
         // and adds it to the final roll
         switch (bonusType) {
-            case "+"-> {
+            case "+" : {
                 finalRoll = bonus + finalRoll;
                 diceRollReport.add(bonus);
             }
-            case "-"-> {
+            case "-" : {
                 finalRoll = finalRoll - bonus;
                 diceRollReport.add(bonus* -1);
             }
-            case "none"-> {
+            case "none" : {
                 diceRollReport.add(0);
             }
         }
@@ -238,10 +249,4 @@ public class TDND {
         return valid;
     }
 
-    public static void main(String[] args) {
-
-        diceInputRequest();
-        printDiceRollReport();
-
-    }
 }
