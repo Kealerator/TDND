@@ -6,18 +6,65 @@ import java.util.ArrayList;
 
 public class TDND {
 
-    public static ArrayList<Integer> diceRollReport = new ArrayList<>();
+   // public static ArrayList<Integer> diceRollReport = new ArrayList<>();
+
+
+   public static int[] diceRollReport = {0, 0, 0, 0, 0};
+   /*
+
+   diceRollReport syntax:
+   0 = dice amount
+   1 = dice type
+   2 = bonus type & amount
+   3 = current roll
+   4 = final roll
+
+   */
 
 
 
     public static void main(String[] args) {
 
         diceInputRequest();
-        printDiceRollReport();
+        //printDiceRollReport();
+
+        //inputSpammer();
 
     }
 
+
+    //input spammer that just really is spamming all kinds of inputs.
     
+    public static void inputSpammer(){
+
+        int[] diceTypesAllowed = {4, 6, 8, 10, 12, 20, 100};
+
+        String spamInput = "";
+
+        for (int i = 0; i < 7; i++) {                                   //dice amount
+            for (int j = 0; j < diceTypesAllowed.length; j++) {         //dice type
+                for (int k = -6; k < 7; k++) {                          //bonus type and amount
+                    if (k < 0) {
+                        spamInput = i + "d" + diceTypesAllowed[j] + k;
+                    } else {
+                        spamInput = i + "d" + diceTypesAllowed[j] + "+" + k;
+                    }
+
+
+                    if (inputValidator(spamInput)) {
+                        inputDecipher(spamInput);
+                        //printDiceRollReport();                    
+                    } else {
+                        System.out.println("Incorrect input.");
+                    }
+                    
+
+                }
+            }
+        }
+
+    }
+
 
     //user input request has an own method now
     public static void diceInputRequest(){
@@ -42,11 +89,25 @@ public class TDND {
         int finalRoll = 0;
         int currentRoll;
 
+        /*
+
+        diceRollReport syntax:
+        0 = dice amount
+        1 = dice type
+        2 = bonus type & amount
+        3 = current roll
+        4 = final roll
+     
+        */
+
+    
         // the loop rolls a random number from given range
         for (int i = 0; i < howMany; i++) {
             currentRoll = ThreadLocalRandom.current().nextInt(1, max + 1);
             finalRoll = finalRoll + currentRoll;
-            diceRollReport.add(currentRoll);
+            diceRollReport[3] = currentRoll;
+
+            printDiceRoll(i, howMany);
         }
 
         // if structure to define the bonus factor (plus, minus, none)
@@ -54,38 +115,73 @@ public class TDND {
         switch (bonusType) {
             case "+" : {
                 finalRoll = bonus + finalRoll;
-                diceRollReport.add(bonus);
+                diceRollReport[2] = bonus;
             }
             case "-" : {
                 finalRoll = finalRoll - bonus;
-                diceRollReport.add(bonus* -1);
+                diceRollReport[2] = bonus * -1;
             }
             case "none" : {
-                diceRollReport.add(0);
+                
             }
+        }
+
+        if (finalRoll < 1) {
+            finalRoll = 1;
         }
 
         //log the final roll
-        diceRollReport.add(finalRoll);
+        diceRollReport[4] = finalRoll;
+
+        printDiceFinalRoll();
 
     }
 
+    public static void printDiceRoll(int count, int howMany){
 
-    public static void printDiceRollReport(){
-        for (int i = 0; i < diceRollReport.size(); i++) {
+        /*
 
-            if (i == diceRollReport.size() - 2){
-                if(diceRollReport.get(i) > 0){
-                    System.out.println("Bonus: +" + diceRollReport.get(i));
-                } else {
-                    System.out.println("Bonus: " + diceRollReport.get(i));
-                }
-            } else if (i == diceRollReport.size() - 1) {
-                System.out.println("Final roll: " + diceRollReport.get(i));
-            } else {
-                System.out.println("Roll #" + (i + 1) + ": " + diceRollReport.get(i));
-            }
+        diceRollReport syntax:
+        0 = dice amount
+        1 = dice type
+        2 = bonus type & amount
+        3 = current roll
+        4 = final roll
+     
+        */
+
+        if (howMany > 0) {
+            System.out.println("Roll #" + (count + 1) + ":" + diceRollReport[3]);
+        } else {
+            System.out.println("Roll:" + diceRollReport[3]);
         }
+
+
+    }
+
+    public static void printDiceFinalRoll(){
+
+
+        /*
+
+        diceRollReport syntax:
+        0 = dice amount
+        1 = dice type
+        2 = bonus type & amount
+        3 = current roll
+        4 = final roll
+     
+        */
+
+
+        if(diceRollReport[2] > 0){
+            System.out.println("Bonus: +" + diceRollReport[2]);
+        } else {
+            System.out.println("Bonus: " + diceRollReport[2]);
+        }  
+
+        System.out.println("Final roll: " + diceRollReport[4]);
+
     }
 
     //inputDecipher that splits user's input to roll information
@@ -129,6 +225,7 @@ public class TDND {
         diceRoller(diceAmount, diceType, bonusVariable, bonusType);
     }
 
+    //validates if the input going to diceRoller function is in correct syntax
     public static boolean inputValidator(String input) {
 
         /*
