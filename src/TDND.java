@@ -1,15 +1,13 @@
 import java.util.Scanner;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Pattern;
-import java.util.ArrayList;
-
 
 public class TDND {
 
-   // public static ArrayList<Integer> diceRollReport = new ArrayList<>();
 
 
-   public static int[] diceRollReport = {0, 0, 0, 0, 0};
+
+   public static int[] diceRollReport = new int[5];
    /*
 
    diceRollReport syntax:
@@ -28,32 +26,45 @@ public class TDND {
         diceInputRequest();
         //printDiceRollReport();
 
-        //inputSpammer();
+        //allowedDiesInputSpammer();
 
     }
 
 
     //input spammer that just really is spamming all kinds of inputs.
     
-    public static void inputSpammer(){
+    public static void allowedDiesInputSpammer(){
 
         int[] diceTypesAllowed = {4, 6, 8, 10, 12, 20, 100};
 
-        String spamInput = "";
 
-        for (int i = 0; i < 7; i++) {                                   //dice amount
+        for (int i = 0; i < 2; i++) {                                   //dice amount
             for (int j = 0; j < diceTypesAllowed.length; j++) {         //dice type
-                for (int k = -6; k < 7; k++) {                          //bonus type and amount
-                    if (k < 0) {
-                        spamInput = i + "d" + diceTypesAllowed[j] + k;
-                    } else {
-                        spamInput = i + "d" + diceTypesAllowed[j] + "+" + k;
+                for (int k = -2; k < 3; k++) {                          //bonus type and amount
+                    
+                    String spamInput = "";
+
+
+                    //generate spamInput piece by piece
+
+                    if (i > 1) {
+                        spamInput = spamInput + String.valueOf(i);              // 0d6 and 1d6 becomes d6 and d6
                     }
 
+                    spamInput = spamInput + "d" + diceTypesAllowed[j];          // generates 'd' and dicetype i.e. d20
+
+                    if (k > 0) {                                                // bonus related bs
+                        spamInput = spamInput + "+" + k;                        // generates '+' and bonus type i.e. +2
+                    } else if (k == 0) {
+                        spamInput = spamInput;
+                    } else {
+                        spamInput = spamInput + String.valueOf(k);
+                    }
+
+                    System.out.println("Input : " + spamInput);
 
                     if (inputValidator(spamInput)) {
-                        inputDecipher(spamInput);
-                        //printDiceRollReport();                    
+                        inputDecipher(spamInput);                                            
                     } else {
                         System.out.println("Incorrect input.");
                     }
@@ -68,17 +79,19 @@ public class TDND {
 
     //user input request has an own method now
     public static void diceInputRequest(){
-        Scanner UserInput = new Scanner(System.in);
-        while (true) {
-            // request for user input
-            System.out.print("Enter dice amount, and dice type (format '1d6+bonus') :");
-            String userInput = UserInput.nextLine();
+        try (Scanner UserInput = new Scanner(System.in)) {
+            while (true) {
 
-            if (inputValidator(userInput)) {
-                inputDecipher(userInput);
-                break;
-            } else {
-                System.out.println("Incorrect input.");
+                // request for user input
+                System.out.print("Enter dice amount, and dice type (format '1d6+bonus') :");
+                String userInput = UserInput.nextLine();
+
+                if (inputValidator(userInput)) {
+                    inputDecipher(userInput);
+                    break;
+                } else {
+                    System.out.println("Incorrect input.");
+                }
             }
         }
 
@@ -87,7 +100,15 @@ public class TDND {
     //diceRoller function that actually rolls the dice(s)
     public static void diceRoller(int howMany, int max, int bonus, String bonusType) {
         int finalRoll = 0;
-        int currentRoll;
+        int currentRoll = 0;
+
+        // initialize dicerollReport
+
+        for (int i = 0; i < diceRollReport.length; i++) {
+            diceRollReport[i] = 0;
+        }
+        
+
 
         /*
 
@@ -116,13 +137,15 @@ public class TDND {
             case "+" : {
                 finalRoll = bonus + finalRoll;
                 diceRollReport[2] = bonus;
+                break;
             }
             case "-" : {
                 finalRoll = finalRoll - bonus;
                 diceRollReport[2] = bonus * -1;
+                break;
             }
             case "none" : {
-                
+                break;
             }
         }
 
@@ -150,10 +173,10 @@ public class TDND {
      
         */
 
-        if (howMany > 0) {
+        if (howMany > 1) {
             System.out.println("Roll #" + (count + 1) + ":" + diceRollReport[3]);
         } else {
-            System.out.println("Roll:" + diceRollReport[3]);
+            System.out.println("Roll: " + diceRollReport[3]);
         }
 
 
