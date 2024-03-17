@@ -1,26 +1,34 @@
 import java.util.ArrayList;
 
 public class rollLogger {
-    private ArrayList<DiceFunctions> rollLogObjects = new ArrayList<>();
-    private ArrayList<String> rollLogStrings = new ArrayList<>();
 
-    public rollLogger(ArrayList<String> rollLogStrings) {
-        this.rollLogStrings = rollLogStrings;
+    private ArrayList<String> rollLog;
+
+    public rollLogger() {
+        this.rollLog = new ArrayList<>();
     }
 
-    public void addObjectToList(DiceFunctions importedObj) {
-        rollLogObjects.add(importedObj);
+    public void addCurrentRoll(int currentRoll){
+        this.rollLog.add(("Roll #" + (this.rollLog.size() + 1)) + ": " + String.valueOf(currentRoll));
     }
 
-    @Override
-    public String toString() {
-
-        String print = "";
-
-        for (String lineString : rollLogStrings) {
-            print += "\n" + lineString;
+    public void addFinalRoll(int finalRoll, int bonus){
+    
+        if (bonus > 0) {
+            String bonusString;
+            bonusString = "+" + String.valueOf(bonus);
+            rollLog.add("Bonus: " + bonusString);
+        } else {
+            rollLog.add("Bonus: " + bonus);
         }
 
-        return print;
+        rollLog.add("Final roll: " + finalRoll);
     }
+
+    public void printDiceThrown(){
+        for (String stringIndex : rollLog) {
+            System.out.println(stringIndex);
+        }
+    }
+
 }
