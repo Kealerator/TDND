@@ -5,11 +5,11 @@ public class UserInterface {
     private Scanner scan;
     private validator inputValidator = new validator();
 
-    public UserInterface(Scanner scan){
+    public UserInterface(Scanner scan) {
         this.scan = scan;
     }
 
-    public void start(){
+    public void start() {
 
         while (true) {
             System.out.println("=== Main menu ===");
@@ -26,7 +26,7 @@ public class UserInterface {
                 if (userInput.contains("y") || userInput.contains("yes")) {
                     System.out.println("\nBye!");
                     break;
-                }else {
+                } else {
                     continue;
                 }
             } else {
@@ -43,20 +43,24 @@ public class UserInterface {
     }
 
     public void diceThrowMenu() {
+        clearTerminal();
+        System.out.println("=== Throw a dice ===\n");
+        System.out.println("Here, you can simply throw a dice!");
+        System.out.println("Enter '--help' for instructions if you need!");
+        System.out.println("Enter 'X' to go back to the main menu.\n");
+
         while (true) {
-            System.out.println("=== Throw a dice ===\n");
-            System.out.println("Here, you can simply throw a dice!");
-            System.out.println("Enter '--help' for instructions if you need!");
-            System.out.println("Enter 'X' to go back to the main menu.\n");
-            
             String userInput = scan.nextLine();
 
             if (userInput.equals("X") || userInput.equals("x")) {
-                System.out.println("Back to menu!");
+                System.out.println("Back to menu!\n");
                 break;
-            } else if(userInput.equals("--help") || userInput.equals("-help")){
+            } else if (userInput.equals("--help") || userInput.equals("-help")) {
                 diceThrowTutorialMenu();
-            } else if (inputValidator.diceSyntaxValidator(userInput)){
+            } else if (inputValidator.diceSyntaxValidator(userInput)) {
+
+                System.out.println("\n=== Rolling " + userInput + " ===");
+
                 inputValidator.diceThrowInputDecipher(userInput);
                 int diceAmount = inputValidator.getDiceAmount();
                 int diceType = inputValidator.getDiceType();
@@ -64,20 +68,29 @@ public class UserInterface {
 
                 Dice userInputDice = new Dice(diceAmount, diceType, bonusVariable);
                 DiceFunctions userDiceFunc = new DiceFunctions(userInputDice);
-                
+
                 userDiceFunc.throwDice();
 
+                System.out.println("=== Throw a dice ===\n");
+
+                continue;
+            } else {
+                System.out.println("Invalid dice parameters.");
+                System.out.println("Type '--help' for more information.\n");
                 continue;
             }
         }
     }
 
     public void diceThrowTutorialMenu() {
+        clearTerminal();
         System.out.println("\n\n--- Welcome to dice tutorial! ---\n");
         System.out.println("The format to throw, is simply put [dice amount] d <dice type>.");
         System.out.println("i.e. entering '2d6' would throw 2 pieces of 6 sided dice!\n\n");
-        System.out.println("Psst! \"Dice\" is the plural form of \"die.\" \"Dice\" is sometimes used to refer to a singular die. " + 
-        "\n\nIf you want to play it safe: Use \"dice\" if you are rolling two or more game pieces.\nUse \"die\", if you are only using one piece.");
+        System.out.println(
+                "Psst! \"Dice\" is the plural form of \"die.\" \"Dice\" is sometimes used to refer to a singular die. "
+                        +
+                        "\n\nIf you want to play it safe: Use \"dice\" if you are rolling two or more game pieces.\nUse \"die\", if you are only using one piece.");
 
         System.out.print("Enter \">\" to proceed: ");
         String userInput = scan.nextLine();
@@ -89,5 +102,16 @@ public class UserInterface {
     private void diceThrowTutorialTests() {
         System.out.println("\n\n--- Dice tutorial ---\n");
 
+        System.out.println("Well, shall we start by throwing a die.");
+        System.out.println("Simply enter 'd6'.\n");
+
+        String userInput = scan.nextLine();
+
+        validator validInput = new validator();
+
+    }
+
+    public void clearTerminal(){
+        System.out.print("\033[H\033[2J");
     }
 }

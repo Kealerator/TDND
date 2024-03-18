@@ -9,8 +9,6 @@ public class DiceFunctions {
     private int currentRoll;
     private int finalRoll;
 
-    private validator validate;
-
     public DiceFunctions(Dice diceObject) {
         this.diceAmount = diceObject.getDiceAmount();
         this.diceType = diceObject.getDiceType();
@@ -31,8 +29,12 @@ public class DiceFunctions {
             this.finalRoll += this.currentRoll;
             rollLog.addCurrentRoll(this.currentRoll);
         }
-
-        this.finalRoll += this.bonus;
+        if (this.finalRoll + this.bonus > 1) {
+            this.finalRoll += this.bonus;
+        } else {
+            this.finalRoll = 1;
+        }
+        
         rollLog.addFinalRoll(this.finalRoll, this.bonus);
 
         rollLog.printDiceThrown();

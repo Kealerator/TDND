@@ -22,7 +22,7 @@ public class rollLogger {
             rollLog.add("Bonus: " + bonus);
         }
 
-        rollLog.add("Final roll: " + finalRoll);
+        rollLog.add("Final roll: " + finalRoll + "\n");
     }
 
     public void printDiceThrown(){
