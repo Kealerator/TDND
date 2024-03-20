@@ -63,10 +63,10 @@ public class UserInterface {
                 Tutorial tutorial = new Tutorial(scan);
                 tutorial.start();
 
-            } else if (validateRollInput(userInput)) {
+            } else if (inputValidator.diceSyntaxValidator(userInput)) {
 
                 System.out.println("\n=== Rolling " + userInput + " ===");
-                diceRoll(userInput);
+                diceRoll(userInput, inputValidator);
 
                 System.out.println("=== Throw a dice ===\n");
 
@@ -81,16 +81,12 @@ public class UserInterface {
         }
     }
 
-    private boolean validateRollInput(String userInput) {
-        return inputValidator.diceSyntaxValidator(userInput);
-    }
+    public void diceRoll(String userInput, validator input) {
 
-    public void diceRoll(String userInput) {
-
-        inputValidator.diceRollInputDecipher(userInput);
-        int diceAmount = inputValidator.getDiceAmount();
-        int diceType = inputValidator.getDiceType();
-        int bonusVariable = inputValidator.getBonusVariable();
+        input.diceRollInputDecipher(userInput);
+        int diceAmount = input.getDiceAmount();
+        int diceType = input.getDiceType();
+        int bonusVariable = input.getBonusVariable();
 
         Dice userInputDice = new Dice(diceAmount, diceType, bonusVariable);
         DiceFunctions userDiceFunc = new DiceFunctions(userInputDice);

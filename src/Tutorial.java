@@ -4,10 +4,12 @@ public class Tutorial {
 
     private UserInterface TutorialUI;
     private Scanner scan;
+    private validator inputValidator;
 
-    public Tutorial(Scanner scan){
+    public Tutorial(Scanner scan) {
         this.scan = scan;
         this.TutorialUI = new UserInterface(scan);
+        this.inputValidator = new validator();
     }
 
     public void start() {
@@ -43,10 +45,27 @@ public class Tutorial {
         System.out.println("Well, shall we start by throwing a die.");
         System.out.println("Simply enter 'd6'.\n");
 
-        String userInput = scan.nextLine();
+        while (true) {
+            String userInput = scan.nextLine();
 
-        if (!(TutorialUI.validateRollInput(userInput))) {
-            System.out.println("Invalid roll input! Try again.");
+            if (!(inputValidator.diceSyntaxValidator(userInput))) {
+                System.out.println("Invalid roll input! Try again.");
+                continue;
+            } else {
+
+                inputValidator.diceRollInputDecipher(userInput);
+
+
+                if (inputValidator.getDiceType() != 6) {
+                    System.out.println("Hmm... Doesn't seem like a d6 to me! Try again.");
+                    continue;
+                } else {
+
+                    System.out.println("Well done! You rolled:\n");
+                    TutorialUI.diceRoll(userInput, inputValidator);
+                    continue;
+                }
+            }
         }
     }
 }

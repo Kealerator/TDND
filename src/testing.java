@@ -5,9 +5,12 @@ public class testing {
     public static void main(String[] args) {
        
         Scanner scan = new Scanner(System.in);
-        UserInterface TextUI = new UserInterface(scan);
+        //UserInterface TextUI = new UserInterface(scan);
+        Tutorial tutorial = new Tutorial(scan);
 
-        TextUI.start();
+        tutorial.start();
+
+        
         
     }
 }
