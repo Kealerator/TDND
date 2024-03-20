@@ -53,11 +53,17 @@ public class UserInterface {
             String userInput = scan.nextLine();
 
             if (userInput.equals("X") || userInput.equals("x")) {
+
                 System.out.println("Back to menu!\n");
+
                 break;
+
             } else if (userInput.equals("--help") || userInput.equals("-help")) {
-                diceRollTutorialMenu();
-            } else if (inputValidator.diceSyntaxValidator(userInput)) {
+
+                Tutorial tutorial = new Tutorial(scan);
+                tutorial.start();
+
+            } else if (validateRollInput(userInput)) {
 
                 System.out.println("\n=== Rolling " + userInput + " ===");
                 diceRoll(userInput);
@@ -66,57 +72,33 @@ public class UserInterface {
 
                 continue;
             } else {
+
                 System.out.println("Invalid dice parameters.");
                 System.out.println("Type '--help' for more information.\n");
                 continue;
+
             }
         }
     }
 
-    private void diceRoll(String userInput) {
-        
-
-                inputValidator.diceRollInputDecipher(userInput);
-                int diceAmount = inputValidator.getDiceAmount();
-                int diceType = inputValidator.getDiceType();
-                int bonusVariable = inputValidator.getBonusVariable();
-
-                Dice userInputDice = new Dice(diceAmount, diceType, bonusVariable);
-                DiceFunctions userDiceFunc = new DiceFunctions(userInputDice);
-
-                userDiceFunc.throwDice();
+    private boolean validateRollInput(String userInput) {
+        return inputValidator.diceSyntaxValidator(userInput);
     }
 
-    public void diceRollTutorialMenu() {
-        clearTerminal();
-        System.out.println("\n\n--- Welcome to dice tutorial! ---\n");
-        System.out.println("The format to throw, is simply put [dice amount] d <dice type>.");
-        System.out.println("i.e. entering '2d6' would throw 2 pieces of 6 sided dice!\n\n");
-        System.out.println(
-                "Psst! \"Dice\" is the plural form of \"die.\" \"Dice\" is sometimes used to refer to a singular die. "
-                        +
-                        "\n\nIf you want to play it safe: Use \"dice\" if you are rolling two or more game pieces.\nUse \"die\", if you are only using one piece.");
+    public void diceRoll(String userInput) {
 
-        System.out.print("Enter \">\" to proceed: ");
-        String userInput = scan.nextLine();
-        if (userInput.equals(">")) {
-            diceRollTutorialTests();
-        }
+        inputValidator.diceRollInputDecipher(userInput);
+        int diceAmount = inputValidator.getDiceAmount();
+        int diceType = inputValidator.getDiceType();
+        int bonusVariable = inputValidator.getBonusVariable();
+
+        Dice userInputDice = new Dice(diceAmount, diceType, bonusVariable);
+        DiceFunctions userDiceFunc = new DiceFunctions(userInputDice);
+
+        userDiceFunc.throwDice();
     }
 
-    private void diceRollTutorialTests() {
-        System.out.println("\n\n--- Dice tutorial ---\n");
-
-        System.out.println("Well, shall we start by throwing a die.");
-        System.out.println("Simply enter 'd6'.\n");
-
-        String userInput = scan.nextLine();
-
-        validator validInput = new validator();
-
-    }
-
-    public void clearTerminal(){
+    public void clearTerminal() {
         System.out.print("\033[H\033[2J");
     }
 }
