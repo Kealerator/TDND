@@ -56,7 +56,7 @@ public class UserInterface {
                 System.out.println("Back to menu!\n");
                 break;
             } else if (userInput.equals("--help") || userInput.equals("-help")) {
-                diceThrowTutorialMenu();
+                diceRollTutorialMenu();
             } else if (inputValidator.diceSyntaxValidator(userInput)) {
 
                 System.out.println("\n=== Rolling " + userInput + " ===");
@@ -76,7 +76,7 @@ public class UserInterface {
     private void diceRoll(String userInput) {
         
 
-                inputValidator.diceThrowInputDecipher(userInput);
+                inputValidator.diceRollInputDecipher(userInput);
                 int diceAmount = inputValidator.getDiceAmount();
                 int diceType = inputValidator.getDiceType();
                 int bonusVariable = inputValidator.getBonusVariable();
@@ -87,7 +87,7 @@ public class UserInterface {
                 userDiceFunc.throwDice();
     }
 
-    public void diceThrowTutorialMenu() {
+    public void diceRollTutorialMenu() {
         clearTerminal();
         System.out.println("\n\n--- Welcome to dice tutorial! ---\n");
         System.out.println("The format to throw, is simply put [dice amount] d <dice type>.");
@@ -100,11 +100,11 @@ public class UserInterface {
         System.out.print("Enter \">\" to proceed: ");
         String userInput = scan.nextLine();
         if (userInput.equals(">")) {
-            diceThrowTutorialTests();
+            diceRollTutorialTests();
         }
     }
 
-    private void diceThrowTutorialTests() {
+    private void diceRollTutorialTests() {
         System.out.println("\n\n--- Dice tutorial ---\n");
 
         System.out.println("Well, shall we start by throwing a die.");

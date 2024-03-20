@@ -130,7 +130,7 @@ public class validator {
             return valid;
         }
 
-    public void diceThrowInputDecipher(String input) {
+    public void diceRollInputDecipher(String input) {
 
         //if structure to find out which bonus type the input has
         // different .split arguments to separate the bonus value from the dice amount and type

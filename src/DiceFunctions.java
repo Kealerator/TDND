@@ -37,7 +37,7 @@ public class DiceFunctions {
         
         rollLog.addFinalRoll(this.finalRoll, this.bonus);
 
-        rollLog.printDiceThrown();
+        rollLog.printdiceRolled();
 
     }
 

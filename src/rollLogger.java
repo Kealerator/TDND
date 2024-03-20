@@ -25,7 +25,7 @@ public class rollLogger {
         rollLog.add("Final roll: " + finalRoll + "\n");
     }
 
-    public void printDiceThrown(){
+    public void printdiceRolled(){
         for (String stringIndex : rollLog) {
             System.out.println(stringIndex);
         }
