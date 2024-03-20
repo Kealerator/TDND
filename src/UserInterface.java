@@ -38,11 +38,11 @@ public class UserInterface {
 
     private void inputProcessor(String userInput) {
         if (userInput.equals("1")) {
-            diceThrowMenu();
+            diceRollMenu();
         }
     }
 
-    public void diceThrowMenu() {
+    public void diceRollMenu() {
         clearTerminal();
         System.out.println("=== Throw a dice ===\n");
         System.out.println("Here, you can simply throw a dice!");
@@ -60,16 +60,7 @@ public class UserInterface {
             } else if (inputValidator.diceSyntaxValidator(userInput)) {
 
                 System.out.println("\n=== Rolling " + userInput + " ===");
-
-                inputValidator.diceThrowInputDecipher(userInput);
-                int diceAmount = inputValidator.getDiceAmount();
-                int diceType = inputValidator.getDiceType();
-                int bonusVariable = inputValidator.getBonusVariable();
-
-                Dice userInputDice = new Dice(diceAmount, diceType, bonusVariable);
-                DiceFunctions userDiceFunc = new DiceFunctions(userInputDice);
-
-                userDiceFunc.throwDice();
+                diceRoll(userInput);
 
                 System.out.println("=== Throw a dice ===\n");
 
@@ -80,6 +71,20 @@ public class UserInterface {
                 continue;
             }
         }
+    }
+
+    private void diceRoll(String userInput) {
+        
+
+                inputValidator.diceThrowInputDecipher(userInput);
+                int diceAmount = inputValidator.getDiceAmount();
+                int diceType = inputValidator.getDiceType();
+                int bonusVariable = inputValidator.getBonusVariable();
+
+                Dice userInputDice = new Dice(diceAmount, diceType, bonusVariable);
+                DiceFunctions userDiceFunc = new DiceFunctions(userInputDice);
+
+                userDiceFunc.throwDice();
     }
 
     public void diceThrowTutorialMenu() {
