@@ -78,52 +78,37 @@ public class Tutorial {
             }
         }
 
-        while (true) {
-            System.out.print("\nEnter \">\" to proceed: ");
-            String userInput = scan.nextLine();
-
-            if (userInput.equals("X") || userInput.equals("x")) {
-                System.out.println("Quit tutorial and go back to main menu? Y/n");
-                userInput = scan.nextLine();
-
-                if (userInput.equals("y") || userInput.contains("yes")) {
-                    UserInterface MainMenu = new UserInterface(scan);
-                    MainMenu.clearTerminal();
-                    MainMenu.start();
-                    break;
-                } else {
-                    continue;
-                }
-
-            } else if (userInput.equals(">")) {
-                diceRollTutorialChallenge1();
-                break;
-            }
+        if (permissionToProceed()) {
+            diceRollTutorialChallenge1();
         }
-
     }
 
     private void diceRollTutorialChallenge1() {
-        ArrayList<Integer> diceRemaining = new ArrayList<>();
-        Collections.addAll(diceRemaining, 4, 6, 8, 10, 12, 20, 100);
+        ArrayList<String> diceRemaining = new ArrayList<>();
+        Collections.addAll(diceRemaining, "d4", "d6", "d8", "d10", "d12", "d20", "d100");
 
         String promptMsg = "";
+        boolean exit = false;
 
         while (true) {
             TutorialUI.clearTerminal();
             System.out.println("\n\n--- Dice tutorial ---\n");
             System.out.println();
             System.out.println(
-                    "So, now that you've thrown your first die. You need to know you can't throw just anything.");
+                    "So, now that you've thrown your first die. You need to know that you can't throw just anything.");
             System.out.println("\nThere are 7 different types of dice.");
             System.out.println("They are:\n");
 
-            for (int diceType : diceRemaining) {
-                System.out.println("d" + diceType);
+            for (String diceType : diceRemaining) {
+                System.out.println(diceType);
             }
 
-            System.out.println("\nThrow one of each!\n");
-            System.out.println();
+            System.out.println("\nThrow atleast one of each die type!\n");
+
+            if (exit) {
+                System.out.println(promptMsg);
+                break;
+            }
             System.out.println(promptMsg);
 
             String userInput = scan.nextLine();
@@ -131,18 +116,86 @@ public class Tutorial {
             if (!(inputValidator.diceSyntaxValidator(userInput))) {
                 promptMsg = "Invalid input! Try again!";
                 continue;
+            } else if (!(diceRemaining.contains("d" + inputValidator.getDiceType()))) {
+                promptMsg = "You've already thrown that dice type!";
+                continue;
             } else {
-                int indexToRemove = diceRemaining.indexOf(inputValidator.getDiceType());
-                diceRemaining.remove(indexToRemove);
+                int indexToRemove = diceRemaining.indexOf("d" + String.valueOf(inputValidator.getDiceType()));
+                diceRemaining.set(indexToRemove, " ");
+
                 inputValidator.diceRollInputDecipher(userInput);
-                DiceFunctions newRoll = new DiceFunctions(inputValidator.getDiceAmount(), inputValidator.getDiceType(), inputValidator.getBonusVariable());
+                DiceFunctions newRoll = new DiceFunctions(userInput, inputValidator);
                 newRoll.throwDiceNoPrint();
                 promptMsg = "Good job! Your roll was " + newRoll.getFinalRoll();
 
-                if (diceRemaining.isEmpty()) {
+                if (checkDiceRemainingListIsFilledWithSpaces(diceRemaining)) {
                     promptMsg += "\nThat was all the dice types! Yay!";
+                    exit = true;
+                }
+                continue;
+            }
+        }
+
+        if (permissionToProceed()) {
+            diceRollTutorialMultipleDiceInfo();
+        }
+
+    }
+
+    public void diceRollTutorialMultipleDiceInfo() {
+        TutorialUI.clearTerminal();
+        System.out.println("\n\n--- Dice tutorial ---\n");
+        System.out.println("Throwing dice is fun, specially if you throw more than one!");
+        System.out.println("You can actually more than one die, but only one type!");
+        System.out.println("\nFor an example, you can throw three pieces of 6 sided dices in a single roll.");
+        System.out.println("But you cannot roll one 6 sided, and one 8 sided die in one roll.");
+
+        System.out.println("\n\"2d6\" = allowed");
+        System.out.println("\"1d6&1d8\" = NOT allowed");
+
+        if (permissionToProceed()) {
+            diceRollTutorialChallenge2();
+        }
+    }
+
+    private boolean permissionToProceed() {
+        while (true) {
+            System.out.print("\n\nEnter \">\" to proceed: ");
+            String userInput = scan.nextLine();
+            if (userInput.equals(">")) {
+                return true;
+            } else if (userInput.equals("X") || userInput.equals("x")) {
+                System.out.print("Quit? Y/n: ");
+                userInput = scan.nextLine();
+
+                if (userInput.equals("Y") || userInput.equals("y")) {
+                    TutorialUI.clearTerminal();
+                    TutorialUI.start();
+                    return false;
+                } else {
+                    continue;
                 }
             }
+        }
+    }
+
+    private void diceRollTutorialChallenge2() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'diceRollTutorialChallenge2'");
+    }
+
+    private boolean checkDiceRemainingListIsFilledWithSpaces(ArrayList<String> list) {
+        int match = 0;
+        for (String listElement : list) {
+            if (listElement.equals(" ")) {
+                match++;
+            }
+        }
+
+        if (match == list.size()) {
+            return true;
+        } else {
+            return false;
         }
     }
 }

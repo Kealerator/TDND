@@ -9,6 +9,13 @@ public class DiceFunctions {
     private int currentRoll;
     private int finalRoll;
 
+    public DiceFunctions(String userInput, validator inputValidator) {
+        inputValidator.diceRollInputDecipher(userInput);
+        this.diceAmount = inputValidator.getDiceAmount();
+        this.diceType = inputValidator.getDiceType();
+        this.bonus = inputValidator.getBonusVariable();
+    }
+
     public DiceFunctions(int diceAmount, int diceType, int bonusVariable) {
         this.diceAmount = diceAmount;
         this.diceType = diceType;
