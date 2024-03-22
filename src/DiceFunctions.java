@@ -9,10 +9,10 @@ public class DiceFunctions {
     private int currentRoll;
     private int finalRoll;
 
-    public DiceFunctions(Dice diceObject) {
-        this.diceAmount = diceObject.getDiceAmount();
-        this.diceType = diceObject.getDiceType();
-        this.bonus = diceObject.getBonus();
+    public DiceFunctions(int diceAmount, int diceType, int bonusVariable) {
+        this.diceAmount = diceAmount;
+        this.diceType = diceType;
+        this.bonus = bonusVariable;
     }
 
     public int generateRoll(int diceType) {
@@ -34,11 +34,45 @@ public class DiceFunctions {
         } else {
             this.finalRoll = 1;
         }
-        
+
         rollLog.addFinalRoll(this.finalRoll, this.bonus);
 
         rollLog.printdiceRolled();
 
     }
 
+    public void throwDiceNoPrint() {
+        this.currentRoll = 0;
+        this.finalRoll = 0;
+
+        for (int i = 0; i < this.diceAmount; i++) {
+            this.currentRoll = generateRoll(this.diceType);
+            this.finalRoll += this.currentRoll;
+        }
+        if (this.finalRoll + this.bonus > 1) {
+            this.finalRoll += this.bonus;
+        } else {
+            this.finalRoll = 1;
+        }
+    }
+
+    public int getDiceAmount() {
+        return diceAmount;
+    }
+
+    public int getDiceType() {
+        return diceType;
+    }
+
+    public int getBonus() {
+        return bonus;
+    }
+
+    public int getCurrentRoll() {
+        return currentRoll;
+    }
+
+    public int getFinalRoll() {
+        return finalRoll;
+    }
 }

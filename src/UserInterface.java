@@ -88,10 +88,21 @@ public class UserInterface {
         int diceType = input.getDiceType();
         int bonusVariable = input.getBonusVariable();
 
-        Dice userInputDice = new Dice(diceAmount, diceType, bonusVariable);
-        DiceFunctions userDiceFunc = new DiceFunctions(userInputDice);
+        DiceFunctions userDiceFunc = new DiceFunctions(diceAmount, diceType, bonusVariable);
 
         userDiceFunc.throwDice();
+    }
+
+    public void diceRollNoPrint(String userInput, validator input) {
+
+        input.diceRollInputDecipher(userInput);
+        int diceAmount = input.getDiceAmount();
+        int diceType = input.getDiceType();
+        int bonusVariable = input.getBonusVariable();
+
+        DiceFunctions userDiceFunc = new DiceFunctions(diceAmount, diceType, bonusVariable);
+
+        userDiceFunc.throwDiceNoPrint();
     }
 
     public void clearTerminal() {
