@@ -1,3 +1,4 @@
 #!
 cd src/
-java testing
+javac Main.java
+java Main
