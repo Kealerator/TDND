@@ -31,9 +31,7 @@ public class Tutorial {
                         +
                         "\n\nIf you want to play it safe: Use \"dice\" if you are rolling two or more game pieces.\nUse \"die\", if you are only using one piece.");
 
-        System.out.print("Enter \">\" to proceed: ");
-        String userInput = scan.nextLine();
-        if (userInput.equals(">")) {
+        if (permissionToProceed()) {
             diceRollTutorialChallenges();
         }
     }
@@ -162,15 +160,22 @@ public class Tutorial {
         while (true) {
             System.out.print("\n\nEnter \">\" to proceed: ");
             String userInput = scan.nextLine();
+
+            if (inputValidator.isUserQuitting(userInput, scan)) {
+                TutorialUI.clearTerminal();
+                TutorialMenu();
+                break;
+            }
+
             if (userInput.equals(">")) {
                 return true;
-            } else if (userInput.equals("X") || userInput.equals("x")) {
-                System.out.print("Quit? Y/n: ");
+            } else if (userInput.equalsIgnoreCase("X")) {
+                System.out.print("Quit to main menu? Y/n: ");
                 userInput = scan.nextLine();
 
-                if (userInput.equals("Y") || userInput.equals("y")) {
+                if (userInput.equalsIgnoreCase("y") || userInput.equalsIgnoreCase("yes")) {
                     TutorialUI.clearTerminal();
-                    TutorialUI.start();
+                    TutorialUI.mainMenu();
                     return false;
                 } else {
                     continue;

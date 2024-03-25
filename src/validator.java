@@ -1,3 +1,4 @@
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class validator {
@@ -5,6 +6,7 @@ public class validator {
     private int diceType;
     private int bonusVariable = 0;
     private String bonusType;
+    private String input;
 
     public validator() {
 
@@ -168,6 +170,26 @@ public class validator {
         }
     }
 
+    public boolean isUserQuitting(String input, Scanner scan) {
+        this.input = input;
+
+        if (this.input.equalsIgnoreCase("X")) {
+            while (true) {
+                System.out.print("\n\nQuit to main menu? Y/n: ");
+                this.input = scan.nextLine();
+                if (this.input.equalsIgnoreCase("y") || this.input.equalsIgnoreCase("yes")) {
+                    return true;
+                } else if (this.input.equalsIgnoreCase("n") || this.input.equalsIgnoreCase("no")) {
+                    return false;
+                } else {
+                    continue;
+                }
+            }   
+        } else {
+            return false;
+        }
+    }
+
     public int getDiceAmount() {
         return this.diceAmount;
     }
@@ -182,6 +204,10 @@ public class validator {
 
     public String getBonusType() {
         return this.bonusType;
+    }
+
+    public String getUserInput() {
+        return input;
     }
 
     public String toString() {

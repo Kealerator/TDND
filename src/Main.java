@@ -5,6 +5,6 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         UserInterface TextUI = new UserInterface(scanner);
 
-        TextUI.start();
+        TextUI.mainMenu();
     }
 }
