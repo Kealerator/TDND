@@ -25,10 +25,13 @@ public class rollLogger {
         rollLog.add("Final roll: " + finalRoll + "\n");
     }
 
-    public void printdiceRolled(){
+    public String toString(){
+        String print = "";
         for (String stringIndex : rollLog) {
-            System.out.println(stringIndex);
+            print += stringIndex + "\n";
         }
+
+        return print;
     }
 
 }

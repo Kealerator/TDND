@@ -9,6 +9,8 @@ public class DiceFunctions {
     private int currentRoll;
     private int finalRoll;
 
+    private rollLogger rollLog;
+
     public DiceFunctions(String userInput, validator inputValidator) {
         inputValidator.diceRollInputDecipher(userInput);
         this.diceAmount = inputValidator.getDiceAmount();
@@ -22,6 +24,12 @@ public class DiceFunctions {
         this.bonus = bonusVariable;
     }
 
+    public DiceFunctions() {
+        this.diceAmount = 0;
+        this.diceType = 0;
+        this.bonus = 0;
+    }
+
     public int generateRoll(int diceType) {
         return ThreadLocalRandom.current().nextInt(1, diceType + 1);
     }
@@ -29,12 +37,12 @@ public class DiceFunctions {
     public void throwDice() {
         this.currentRoll = 0;
         this.finalRoll = 0;
-        rollLogger rollLog = new rollLogger();
+        this.rollLog = new rollLogger();
 
         for (int i = 0; i < this.diceAmount; i++) {
             this.currentRoll = generateRoll(this.diceType);
             this.finalRoll += this.currentRoll;
-            rollLog.addCurrentRoll(this.currentRoll);
+            this.rollLog.addCurrentRoll(this.currentRoll);
         }
         if (this.finalRoll + this.bonus > 1) {
             this.finalRoll += this.bonus;
@@ -42,13 +50,12 @@ public class DiceFunctions {
             this.finalRoll = 1;
         }
 
-        rollLog.addFinalRoll(this.finalRoll, this.bonus);
-
-        rollLog.printdiceRolled();
+        this.rollLog.addFinalRoll(this.finalRoll, this.bonus);
+        
 
     }
 
-    public void throwDiceNoPrint() {
+    public void throwDiceNoLog() {
         this.currentRoll = 0;
         this.finalRoll = 0;
 
@@ -64,22 +71,26 @@ public class DiceFunctions {
     }
 
     public int getDiceAmount() {
-        return diceAmount;
+        return this.diceAmount;
     }
 
     public int getDiceType() {
-        return diceType;
+        return this.diceType;
     }
 
     public int getBonus() {
-        return bonus;
+        return this.bonus;
     }
 
     public int getCurrentRoll() {
-        return currentRoll;
+        return this.currentRoll;
     }
 
     public int getFinalRoll() {
-        return finalRoll;
+        return this.finalRoll;
+    }
+
+    public rollLogger getRollLog() {
+        return this.rollLog;
     }
 }

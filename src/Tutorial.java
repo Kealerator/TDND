@@ -67,7 +67,7 @@ public class Tutorial {
                 } else {
 
                     this.roll = new DiceFunctions(1, 6, 0);
-                    this.roll.throwDiceNoPrint();
+                    this.roll.throwDiceNoLog();
 
                     System.out.println("Well done! You rolled: " + roll.getFinalRoll());
 
@@ -123,7 +123,7 @@ public class Tutorial {
 
                 inputValidator.diceRollInputDecipher(userInput);
                 DiceFunctions newRoll = new DiceFunctions(userInput, inputValidator);
-                newRoll.throwDiceNoPrint();
+                newRoll.throwDiceNoLog();
                 promptMsg = "Good job! Your roll was " + newRoll.getFinalRoll();
 
                 if (checkDiceRemainingListIsFilledWithSpaces(diceRemaining)) {

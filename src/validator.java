@@ -178,13 +178,15 @@ public class validator {
                 System.out.print("\n\nQuit to main menu? Y/n: ");
                 this.input = scan.nextLine();
                 if (this.input.equalsIgnoreCase("y") || this.input.equalsIgnoreCase("yes")) {
+                    UserInterface MainMenu = new UserInterface(scan);
+                    MainMenu.mainMenu();
                     return true;
                 } else if (this.input.equalsIgnoreCase("n") || this.input.equalsIgnoreCase("no")) {
                     return false;
                 } else {
                     continue;
                 }
-            }   
+            }
         } else {
             return false;
         }

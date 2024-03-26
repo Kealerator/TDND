@@ -14,14 +14,22 @@ public class DiceRollerMenu {
     }
 
     public void start() {
-
-        boolean printRoll = false;
+        DiceFunctions userInputRoll = new DiceFunctions();
+        boolean diceRolled = false;
+        boolean errorPrompt = false;
+        String previousUserInput = "";
 
         while (true) {
+
             TextUI.clearTerminal();
             printDiceRollerMenu();
 
- 
+            if (diceRolled) {
+                printRollLog(previousUserInput, userInputRoll);
+            }
+            if (errorPrompt) {
+                errorMsg();
+            }
 
             String userInput = scan.nextLine();
 
@@ -34,15 +42,17 @@ public class DiceRollerMenu {
                 break;
 
             } else if (inputValidator.diceSyntaxValidator(userInput)) {
+                errorPrompt = false;
+                diceRolled = true;
+                previousUserInput = userInput;
 
-                System.out.println("\n=== Rolling " + userInput + " ===");
-                DiceFunctions userInputRoll = new DiceFunctions(userInput, inputValidator);
+                userInputRoll = new DiceFunctions(userInput, inputValidator);
                 userInputRoll.throwDice();
                 continue;
             } else {
+                diceRolled = false;
+                errorPrompt = true;
 
-                System.out.println("Invalid dice parameters.");
-                System.out.println("Type '--help' for more information.\n");
                 continue;
 
             }
@@ -56,4 +66,15 @@ public class DiceRollerMenu {
         System.out.println("Enter '--help' for instructions if you need!");
         System.out.println("Enter 'X' to go back to the main menu.\n");
     }
+
+    private void printRollLog(String userInput, DiceFunctions diceFunctions) {
+
+        System.out.println(diceFunctions.getRollLog());
+    }
+
+    private void errorMsg() {
+        System.out.println("Invalid dice parameters.");
+        System.out.println("Type '--help' for more information.\n");
+    }
+
 }

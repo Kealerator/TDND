@@ -30,16 +30,21 @@ public class UserInterface {
                     continue;
                 }
             } else {
-                inputProcessor(userInput);
+                if (inputProcessor(userInput)) {
+                    break;
+                }
                 continue;
             }
         }
     }
 
-    private void inputProcessor(String userInput) {
+    private boolean inputProcessor(String userInput) {
         if (userInput.equals("1")) {
             DiceRollerMenu diceRollerMenu = new DiceRollerMenu(scan);
             diceRollerMenu.start();
+            return true;
+        } else {
+            return false;
         }
     }
 
