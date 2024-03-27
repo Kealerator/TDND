@@ -41,14 +41,26 @@ public class Tutorial {
     }
 
     private void diceRollTutorialChallenge0() {
-        TutorialUI.clearTerminal();
-        System.out.println("\n\n--- Dice tutorial ---\n");
-
-        System.out.println("Well, shall we start by throwing a die.");
-        System.out.println("Simply enter 'd6'.\n");
-
         while (true) {
+
+            TutorialUI.clearTerminal();
+            System.out.println("\n\n--- Dice tutorial ---\n");
+
+            System.out.println("Well, shall we start by throwing a die.");
+            System.out.println("Simply enter 'd6'.\n");
+
             String userInput = scan.nextLine();
+
+            if (userInput.equalsIgnoreCase("X")) {
+                if (inputValidator.isUserQuitting(userInput, scan)) {
+                    UserInterface MainMenu = new UserInterface(scan);
+                    MainMenu.clearTerminal();
+                    MainMenu.mainMenu();
+                    break;
+                } else {
+                    continue;
+                }
+            }
 
             if (!(inputValidator.diceSyntaxValidator(userInput))) {
                 System.out.println("Invalid roll input! Try again.");
@@ -111,6 +123,10 @@ public class Tutorial {
 
             String userInput = scan.nextLine();
 
+            if (userInput.equalsIgnoreCase("X")) {
+                inputValidator.isUserQuitting(userInput, scan);
+            }
+
             if (!(inputValidator.diceSyntaxValidator(userInput))) {
                 promptMsg = "Invalid input! Try again!";
                 continue;
@@ -163,23 +179,15 @@ public class Tutorial {
 
             if (inputValidator.isUserQuitting(userInput, scan)) {
                 TutorialUI.clearTerminal();
-                TutorialMenu();
-                break;
+                UserInterface MainMenu = new UserInterface(scan);
+                MainMenu.mainMenu();
+                return false;
             }
 
             if (userInput.equals(">")) {
                 return true;
-            } else if (userInput.equalsIgnoreCase("X")) {
-                System.out.print("Quit to main menu? Y/n: ");
-                userInput = scan.nextLine();
-
-                if (userInput.equalsIgnoreCase("y") || userInput.equalsIgnoreCase("yes")) {
-                    TutorialUI.clearTerminal();
-                    TutorialUI.mainMenu();
-                    return false;
-                } else {
-                    continue;
-                }
+            } else {
+                continue;
             }
         }
     }

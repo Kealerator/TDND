@@ -9,7 +9,7 @@ public class DiceRollerMenu {
     public DiceRollerMenu(Scanner scan) {
         this.scan = scan;
         this.TextUI = new UserInterface(scan);
-        this.inputValidator = new validator();
+
 
     }
 
@@ -20,7 +20,7 @@ public class DiceRollerMenu {
         String previousUserInput = "";
 
         while (true) {
-
+            this.inputValidator = new validator();
             TextUI.clearTerminal();
             printDiceRollerMenu();
 
@@ -33,9 +33,7 @@ public class DiceRollerMenu {
 
             String userInput = scan.nextLine();
 
-            if (inputValidator.isUserQuitting(userInput, scan)) {
-                break;
-            } else if (userInput.equals("--help") || userInput.equals("-help")) {
+            if (userInput.equals("--help") || userInput.equals("-help")) {
 
                 Tutorial tutorial = new Tutorial(scan);
                 tutorial.start();
@@ -50,8 +48,19 @@ public class DiceRollerMenu {
                 userInputRoll.throwDice();
                 continue;
             } else {
-                diceRolled = false;
-                errorPrompt = true;
+
+                if (inputValidator.isUserQuitting(userInput, scan)) {
+                    break;
+                } else {
+                    if (inputValidator.isCancelled()) {
+                        diceRolled = false;
+                        errorPrompt = false;
+                    } else {
+                        diceRolled = false;
+                        errorPrompt = true;
+                    }
+
+                }
 
                 continue;
 

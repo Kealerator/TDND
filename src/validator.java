@@ -8,6 +8,8 @@ public class validator {
     private String bonusType;
     private String input;
 
+    private boolean cancelled = false;
+
     public validator() {
 
     }
@@ -182,6 +184,7 @@ public class validator {
                     MainMenu.mainMenu();
                     return true;
                 } else if (this.input.equalsIgnoreCase("n") || this.input.equalsIgnoreCase("no")) {
+                    this.cancelled = true;
                     return false;
                 } else {
                     continue;
@@ -209,7 +212,11 @@ public class validator {
     }
 
     public String getUserInput() {
-        return input;
+        return this.input;
+    }
+
+    public boolean isCancelled() {
+        return this.cancelled;
     }
 
     public String toString() {
