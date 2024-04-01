@@ -7,7 +7,7 @@ public class testing {
         Scanner scan = new Scanner(System.in);
         Tutorial tutorial = new Tutorial(scan);
 
-        tutorial.diceRollTutorialMultipleDiceInfo();
+        tutorial.start();
 
     }
 }

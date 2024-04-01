@@ -53,9 +53,9 @@ public class Tutorial {
 
             if (userInput.equalsIgnoreCase("X")) {
                 if (inputValidator.isUserQuitting(userInput, scan)) {
-                    UserInterface MainMenu = new UserInterface(scan);
-                    MainMenu.clearTerminal();
-                    MainMenu.mainMenu();
+                    // UserInterface MainMenu = new UserInterface(scan);
+                    // MainMenu.clearTerminal();
+                    // MainMenu.mainMenu();
                     break;
                 } else {
                     continue;
@@ -83,14 +83,16 @@ public class Tutorial {
 
                     System.out.println("Well done! You rolled: " + roll.getFinalRoll());
 
-                    break;
                 }
+            }
+            if (permissionToProceed()) {
+                diceRollTutorialChallenge1();
+                break;
+            } else {
+                break;
             }
         }
 
-        if (permissionToProceed()) {
-            diceRollTutorialChallenge1();
-        }
     }
 
     private void diceRollTutorialChallenge1() {
@@ -124,7 +126,11 @@ public class Tutorial {
             String userInput = scan.nextLine();
 
             if (userInput.equalsIgnoreCase("X")) {
-                inputValidator.isUserQuitting(userInput, scan);
+                if (inputValidator.isUserQuitting(userInput, scan)) {
+                    break;
+                } else {
+                    continue;
+                }
             }
 
             if (!(inputValidator.diceSyntaxValidator(userInput))) {
@@ -144,14 +150,16 @@ public class Tutorial {
 
                 if (checkDiceRemainingListIsFilledWithSpaces(diceRemaining)) {
                     promptMsg += "\nThat was all the dice types! Yay!";
+                    if (permissionToProceed()) {
+                        diceRollTutorialMultipleDiceInfo();
+                    }else{
+                        break;
+                    }
                     exit = true;
                 }
                 continue;
             }
-        }
 
-        if (permissionToProceed()) {
-            diceRollTutorialMultipleDiceInfo();
         }
 
     }
@@ -178,9 +186,6 @@ public class Tutorial {
             String userInput = scan.nextLine();
 
             if (inputValidator.isUserQuitting(userInput, scan)) {
-                TutorialUI.clearTerminal();
-                UserInterface MainMenu = new UserInterface(scan);
-                MainMenu.mainMenu();
                 return false;
             }
 
