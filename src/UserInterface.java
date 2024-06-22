@@ -1,54 +1,45 @@
-import java.util.Scanner;
+public class UserInterface extends Engine {
 
-public class UserInterface {
+    private int frameHeight;
+    private int frameWidth;
+    private String frameTitle;
+    private Object object;
 
-    private Scanner scan;
-
-    public UserInterface(Scanner scan) {
-        this.scan = scan;
+    public UserInterface(int height, int width, Menu menuObj) {
+        this.frameHeight = height;
+        this.frameWidth = (width * 3);
+        this.frameTitle = menuObj.getMenuTitle();
+        this.frameTitleBar('&', frameTitle);
+        this.object = menuObj;
     }
 
-    public void mainMenu() {
 
-        while (true) {
-            clearTerminal();
-            System.out.println("=== Main menu ===");
-            System.out.println("1. Throw a dice");
-            System.out.println("X. Quit");
-            System.out.println();
-            System.out.print("Select: ");
-            String userInput = scan.nextLine();
 
-            if (userInput.equals("X") || userInput.equals("x")) {
-                System.out.println("\n\n=== Quit? ===");
-                System.out.print("y/n : ");
-                userInput = scan.nextLine();
-                if (userInput.equalsIgnoreCase("y") || userInput.equalsIgnoreCase("yes")) {
-                    System.out.println("\nBye!");
-                    break;
-                } else {
-                    continue;
-                }
-            } else {
-                if (inputProcessor(userInput)) {
-                    break;
-                }
-                continue;
-            }
+    public void frameTitleBar(char frameSymbol, String frameTitle) {
+
+        frameTitleBarTop(this.frameWidth, frameSymbol);
+
+        System.out.print("\n" + frameSymbol);
+        printSpaces(frameTitle.length() - 1);
+        System.out.print(frameTitle);
+        printSpaces(frameTitle.length() - 1);
+        System.out.println("&");
+
+        frameTitleBarTop(this.frameWidth, frameSymbol);
+
+        System.out.println("\n");
+
+    }
+
+    private void printSpaces(int amount) {
+        for (int i = 0; i < amount; i++) {
+            System.out.print(" ");
         }
     }
 
-    private boolean inputProcessor(String userInput) {
-        if (userInput.equals("1")) {
-            DiceRollerMenu diceRollerMenu = new DiceRollerMenu(scan);
-            diceRollerMenu.start();
-            return true;
-        } else {
-            return false;
+    private void frameTitleBarTop(int width, char frameSymbol) {
+        for (int j = 0; j < width; j++) {
+            System.out.print(frameSymbol);
         }
-    }
-
-    public void clearTerminal() {
-        System.out.print("\033[H\033[2J");
     }
 }

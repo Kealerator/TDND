@@ -1,10 +1,18 @@
-import java.util.Scanner;
+public class Main extends Engine{
 
-public class Main {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        UserInterface TextUI = new UserInterface(scanner);
+     public static void main(String[] args) {        
+        Menu mainMenu = new Menu("main", "Main menu");
+        Menu meinMenu = new Menu("mein", "Mein menu");
+        engLog.print();
 
-        TextUI.mainMenu();
-    }
+        mainMenu.addMainMenuItem(new MenuItem("Start"));
+        mainMenu.addMainMenuItem(new MenuItem("Settings"));
+        mainMenu.addMainMenuItem(new MenuItem("Quit"));
+
+
+        
+
+        mainMenu.printMenu();
+        
+     }
 }
