@@ -10,20 +10,16 @@ public class Menu extends MenuBuilder {
           this.menuType = menuType;
           this.menuTitle = menuTitle;
           if (MenuBuilder.checkIfMenuValidType(this)) {
-               this.initializeMenuItems();
+               this.initMenuItems();
                this.initMenu();
           }
 
      }
 
-     public void initializeMenuItems() {
+     public void initMenuItems() {
           if (this.menuType.equals("main")) {
-               generateMainTypeMenu();
+               this.menuItems = new ArrayList<>();
           }
-     }
-
-     private void generateMainTypeMenu() {
-          this.menuItems = new ArrayList<>();
      }
 
      public void addMainMenuItem(MenuItem item) {
@@ -39,20 +35,9 @@ public class Menu extends MenuBuilder {
 
      public void printMenu() {
           this.UI.printInterface();
-
-          String menuItemContent = "";
-
-          for (MenuItem menuItem : menuItems) {
-               menuItemContent += menuItem + "\n";
-          }
-
-//          System.out.println(menuItemContent);
-
-          
-
      }
 
-     public ArrayList<MenuItem> getMenuItems(){
+     public ArrayList<MenuItem> getMenuItems() {
           return this.menuItems;
      }
 
