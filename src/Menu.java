@@ -46,10 +46,14 @@ public class Menu extends MenuBuilder {
                menuItemContent += menuItem + "\n";
           }
 
-          System.out.println(menuItemContent);
+//          System.out.println(menuItemContent);
 
           
 
+     }
+
+     public ArrayList<MenuItem> getMenuItems(){
+          return this.menuItems;
      }
 
      public String getMenuType() {

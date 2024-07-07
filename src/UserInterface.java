@@ -1,9 +1,12 @@
+import java.util.ArrayList;
+
 public class UserInterface extends Engine {
 
     private int frameHeight;
     private int frameWidth;
     private String frameTitle;
-    private Object object;
+    private Menu object;
+    private ArrayList<MenuItem> menuItems;
 
     public UserInterface(int height, int width, Menu menuObj) {
         this.frameHeight = height;
@@ -12,11 +15,10 @@ public class UserInterface extends Engine {
         this.object = menuObj;
     }
 
-    public void printInterface(){
-       this.printFrameTitleBar('&', this.frameTitle);
-
+    public void printInterface() {
+        this.printFrameTitleBar('&', this.frameTitle);
+        this.printMenuItemFrame(this.object.getMenuItems());
     }
-
 
     public void printFrameTitleBar(char frameSymbol, String frameTitle) {
 
@@ -30,7 +32,7 @@ public class UserInterface extends Engine {
 
         frameTitleBarTop(this.frameWidth, frameSymbol);
 
-        System.out.println("\n");
+        System.out.print("\n");
 
     }
 
@@ -43,6 +45,31 @@ public class UserInterface extends Engine {
     private void frameTitleBarTop(int width, char frameSymbol) {
         for (int j = 0; j < width; j++) {
             System.out.print(frameSymbol);
+        }
+    }
+
+    private void printMenuItemFrame(ArrayList<MenuItem> menuItems) {
+        for (int i = 0; i < menuItems.size() + 2; i++) {
+            System.out.print("&");
+
+            if (i >= 1 && i <= menuItems.size()) {
+                System.out.print("  " + menuItems.get(i - 1));
+                this.printSpaces(this.frameWidth - (menuItems.get(i - 1).toString().length()) - 4);
+                System.out.print("&\n");
+            } else {
+                this.printSpaces(this.frameWidth - 2);
+                System.out.print("&\n");
+
+                if (i == menuItems.size() + 1) {
+                    for (int j = 0; j < this.frameWidth; j++) {
+                        System.out.print("&");
+                        if (j == this.frameWidth - 1) {
+                            System.out.print("\n");
+                        }
+                    }
+                }
+            }
+
         }
     }
 }
