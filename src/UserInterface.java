@@ -9,13 +9,16 @@ public class UserInterface extends Engine {
         this.frameHeight = height;
         this.frameWidth = (width * 3);
         this.frameTitle = menuObj.getMenuTitle();
-        this.frameTitleBar('&', frameTitle);
         this.object = menuObj;
     }
 
+    public void printInterface(){
+       this.printFrameTitleBar('&', this.frameTitle);
+
+    }
 
 
-    public void frameTitleBar(char frameSymbol, String frameTitle) {
+    public void printFrameTitleBar(char frameSymbol, String frameTitle) {
 
         frameTitleBarTop(this.frameWidth, frameSymbol);
 
