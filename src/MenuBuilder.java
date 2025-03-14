@@ -2,9 +2,6 @@ import java.util.ArrayList;
 
 public class MenuBuilder extends Engine {  
     
-    public static void generateMenu(Menu obj){
-        checkMenuType(obj);
-    }    
 
     public static boolean checkIfMenuValidType(Menu obj){
         ArrayList<String> menuTypes = initMenuTypes();

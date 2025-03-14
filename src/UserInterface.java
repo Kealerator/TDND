@@ -6,41 +6,54 @@ public class UserInterface extends Engine {
     private int frameWidth;
     private String frameTitle;
     private Menu object;
-    private char symbolA;
-    private char symbolB;
+    private char symbolFrameTitlebar;
+    private char symbolMenuFrame;
 
+    // Initialize Menu by custom height and width
     public UserInterface(int height, int width, Menu menuObj) {
         this.frameHeight = height;
         this.frameWidth = (width * 3);
         this.frameTitle = menuObj.getMenuTitle();
         this.object = menuObj;
-        this.symbolA = '#';
-        this.symbolB = '‡';
+        this.symbolFrameTitlebar = '#';
+        this.symbolMenuFrame = '|';
     }
 
-    public UserInterface(int height, int width, Menu menuObj, char symbolA, char symbolB) {
+    // Initialize a menu by custom height, width, custom symbols for frametitle bar and menu frame
+    public UserInterface(int height, int width, Menu menuObj, char symbolFrameTitlebar, char symbolMenuFrame) {
         this.frameHeight = height;
         this.frameWidth = (width * 3);
         this.frameTitle = menuObj.getMenuTitle();
         this.object = menuObj;
-        this.symbolA = symbolA;
-        this.symbolB = symbolB;
+        this.symbolFrameTitlebar = symbolFrameTitlebar;
+        this.symbolMenuFrame = symbolMenuFrame;
     }
 
+    // Print the whole menu 
     public void printInterface() {
-        this.printFrameTitleBar(this.symbolA, this.frameTitle);
-        this.printMenuItemFrame(this.object.getMenuItems(), this.symbolB);
+        // The menu is separated to 2 sections, FrameTitlebar, and the Menu Item Frame.
+
+        // Print the frametitle bar
+        this.printFrameTitleBar(this.symbolFrameTitlebar, this.frameTitle);
+
+        // Print the menu frame and the menu items inside it
+        this.printMenuItemFrame(this.object.getMenuItems(), this.symbolMenuFrame);
     }
 
+    // Here on is just different functions for menu printing.
+
+
+    //The title bar
     public void printFrameTitleBar(char frameSymbol, String frameTitle) {
 
-
+        // Top
         this.printTopFrameTitleBar(frameSymbol);
 
+        // Sides and the Title
         this.printSidesFrameTitleBar(frameSymbol);
 
+        // Bottom
         this.printBottomFrameTitleBar(frameSymbol);
-
         System.out.print("\n");
 
     }
@@ -76,7 +89,11 @@ public class UserInterface extends Engine {
         }
     }
 
+
+    // Print Menu Item Frame
     private void printMenuItemFrame(ArrayList<MenuItem> menuItems, char symbol) {
+
+        // Print the sides within every menu item
         for (int i = 0; i < menuItems.size() + 2; i++) {
             System.out.print(symbol);
 
@@ -89,7 +106,7 @@ public class UserInterface extends Engine {
                 System.out.print(symbol + "\n");
 
                 if (i == menuItems.size() + 1) {
-                    this.printSymbol(this.frameWidth, symbolA);
+                    this.printSymbol(this.frameWidth, symbolFrameTitlebar);
                     System.out.println();
                 }
             }
