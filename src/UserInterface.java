@@ -4,6 +4,7 @@ public class UserInterface extends Engine {
 
     private int frameHeight;
     private int frameWidth;
+    private int longestMenuItemLength;
     private String frameTitle;
     private Menu object;
     private char symbolFrameTitlebar;
@@ -11,15 +12,18 @@ public class UserInterface extends Engine {
 
     // Initialize Menu by custom height and width
     public UserInterface(int height, int width, Menu menuObj) {
+
+        this.object = menuObj;
         this.frameHeight = height;
         this.frameWidth = (width * 3);
+
         this.frameTitle = menuObj.getMenuTitle();
-        this.object = menuObj;
         this.symbolFrameTitlebar = '#';
         this.symbolMenuFrame = '|';
     }
 
-    // Initialize a menu by custom height, width, custom symbols for frametitle bar and menu frame
+    // Initialize a menu by custom height, width, custom symbols for frametitle bar
+    // and menu frame
     public UserInterface(int height, int width, Menu menuObj, char symbolFrameTitlebar, char symbolMenuFrame) {
         this.frameHeight = height;
         this.frameWidth = (width * 3);
@@ -29,8 +33,14 @@ public class UserInterface extends Engine {
         this.symbolMenuFrame = symbolMenuFrame;
     }
 
-    // Print the whole menu 
+    // Print the whole menu
     public void printInterface() {
+
+        if (isAnyMenuItemLongerThanTitle(this.object)) {
+            this.frameWidth = this.longestMenuItemLength;
+
+        }
+
         // The menu is separated to 2 sections, FrameTitlebar, and the Menu Item Frame.
 
         // Print the frametitle bar
@@ -42,8 +52,7 @@ public class UserInterface extends Engine {
 
     // Here on is just different functions for menu printing.
 
-
-    //The title bar
+    // The title bar
     public void printFrameTitleBar(char frameSymbol, String frameTitle) {
 
         // Top
@@ -58,22 +67,30 @@ public class UserInterface extends Engine {
 
     }
 
-    private void printTopFrameTitleBar(char symbol){
+    private void printTopFrameTitleBar(char symbol) {
         printSymbol(this.frameWidth, symbol);
     }
 
-    private void printSidesFrameTitleBar(char symbol){
+    private void printSidesFrameTitleBar(char symbol) {
+        int nudge;
         System.out.print("\n" + symbol);
 
-        printSpaces(this.frameTitle.length() - 1);
+        if(this.frameTitle.length() % 2 != 0){
+            nudge = 3;
+        }else {
+            nudge = 0;
+        }
+
+        printSpaces((this.frameWidth / 2) - (this.frameTitle.length() / 2));
         System.out.print(this.frameTitle);
-        printSpaces(this.frameTitle.length() - 1);
+        // printSpaces(this.frameWidth - this.frameTitle.length());
+        printSpaces((this.frameWidth / 2) - (this.frameTitle.length() / 2) - nudge);
 
         System.out.println(symbol);
 
     }
 
-    private void printBottomFrameTitleBar(char symbol){
+    private void printBottomFrameTitleBar(char symbol) {
         this.printTopFrameTitleBar(symbol);
     }
 
@@ -88,7 +105,6 @@ public class UserInterface extends Engine {
             System.out.print(frameSymbol);
         }
     }
-
 
     // Print Menu Item Frame
     private void printMenuItemFrame(ArrayList<MenuItem> menuItems, char symbol) {
@@ -113,4 +129,25 @@ public class UserInterface extends Engine {
 
         }
     }
+
+    private boolean isAnyMenuItemLongerThanTitle(Menu menuObj) {
+        ArrayList<MenuItem> itemList = menuObj.getMenuItems();
+
+        int larger = 0;
+
+        for (int i = 0; i < itemList.size(); i++) {
+            if (larger < itemList.get(i).toString().length() + 5) {
+                larger = itemList.get(i).toString().length() + 5;
+            }
+        }
+
+        if ((this.frameWidth / 3) < larger) {
+            this.longestMenuItemLength = larger;
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
 }

@@ -1,16 +1,22 @@
+
 public class Main extends Engine {
 
    public static void main(String[] args) {
-      Menu mainMenu = new Menu("main", "Main menu");
-      Menu meinMenu = new Menu("mein", "Mein menu");
+
+      Menu test1 = new Menu("TERE!", Menu.menuType.MAIN);
+      Menu test2 = new Menu("TORE!", Menu.menuType.PROMPT);
+
+
+
+
       engLog.print();
 
-      mainMenu.addMainMenuItem(new MenuItem("Start"));
-      mainMenu.addMainMenuItem(new MenuItem("Settings"));
-      mainMenu.addMainMenuItem(new MenuItem("Quit"));
+      test1.addMainMenuItem(new MenuItem("Start"));
+      test1.addMainMenuItem(new MenuItem("Settings"));
+      test1.addMainMenuItem(new MenuItem("Quit"));
 
       //This Menu Item goes over the frame
-      mainMenu.addMainMenuItem(new MenuItem("123456789abcdefg18192021222324252628"));
+      test1.addMainMenuItem(new MenuItem("123456789"));
 
 /*
  * TODO:
@@ -25,7 +31,7 @@ public class Main extends Engine {
  */
 
 
-      mainMenu.printMenu();
+      test1.printMenu();
 
    }
 }
