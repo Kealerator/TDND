@@ -25,10 +25,10 @@ public class UserInterface extends Engine {
     // Initialize a menu by custom height, width, custom symbols for frametitle bar
     // and menu frame
     public UserInterface(int height, int width, Menu menuObj, char symbolFrameTitlebar, char symbolMenuFrame) {
-        this.object = menuObj;
         this.frameTitle = menuObj.getMenuTitle();
         this.frameHeight = height;
         this.frameWidth = (width * 3) - this.frameTitle.length();
+        this.object = menuObj;
         this.symbolFrameTitlebar = symbolFrameTitlebar;
         this.symbolMenuFrame = symbolMenuFrame;
     }
