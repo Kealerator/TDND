@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public class Menu extends Engine {
-     public enum menuType {
+     public static enum menuType {
           MAIN, PROMPT, CONFIRM;
 
      }

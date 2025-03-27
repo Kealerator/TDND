@@ -25,10 +25,10 @@ public class UserInterface extends Engine {
     // Initialize a menu by custom height, width, custom symbols for frametitle bar
     // and menu frame
     public UserInterface(int height, int width, Menu menuObj, char symbolFrameTitlebar, char symbolMenuFrame) {
-        this.frameHeight = height;
-        this.frameWidth = (width * 3);
-        this.frameTitle = menuObj.getMenuTitle();
         this.object = menuObj;
+        this.frameTitle = menuObj.getMenuTitle();
+        this.frameHeight = height;
+        this.frameWidth = (width * 3) - this.frameTitle.length();
         this.symbolFrameTitlebar = symbolFrameTitlebar;
         this.symbolMenuFrame = symbolMenuFrame;
     }
@@ -36,8 +36,8 @@ public class UserInterface extends Engine {
     // Print the whole menu
     public void printInterface() {
 
-        if (isAnyMenuItemLongerThanTitle(this.object)) {
-            this.frameWidth = this.longestMenuItemLength;
+        if (isAnyMenuItemLongerThanTitleBar(this.object)) {
+            this.frameWidth += this.frameWidth - this.longestMenuItemLength;
 
         }
 
@@ -72,19 +72,14 @@ public class UserInterface extends Engine {
     }
 
     private void printSidesFrameTitleBar(char symbol) {
-        int nudge;
+
+
+
+
         System.out.print("\n" + symbol);
-
-        if(this.frameTitle.length() % 2 != 0){
-            nudge = 3;
-        }else {
-            nudge = 0;
-        }
-
-        printSpaces((this.frameWidth / 2) - (this.frameTitle.length() / 2));
+        printSpaces(this.frameWidth - this.frameTitle.length());
         System.out.print(this.frameTitle);
-        // printSpaces(this.frameWidth - this.frameTitle.length());
-        printSpaces((this.frameWidth / 2) - (this.frameTitle.length() / 2) - nudge);
+        printSpaces(this.frameWidth - this.frameTitle.length());
 
         System.out.println(symbol);
 
@@ -130,18 +125,18 @@ public class UserInterface extends Engine {
         }
     }
 
-    private boolean isAnyMenuItemLongerThanTitle(Menu menuObj) {
+    private boolean isAnyMenuItemLongerThanTitleBar(Menu menuObj) {
         ArrayList<MenuItem> itemList = menuObj.getMenuItems();
 
         int larger = 0;
 
         for (int i = 0; i < itemList.size(); i++) {
-            if (larger < itemList.get(i).toString().length() + 5) {
-                larger = itemList.get(i).toString().length() + 5;
+            if (larger < itemList.get(i).toString().length()) {
+                larger = itemList.get(i).toString().length();
             }
         }
 
-        if ((this.frameWidth / 3) < larger) {
+        if ((this.frameWidth) < larger) {
             this.longestMenuItemLength = larger;
             return true;
         } else {
