@@ -27,7 +27,7 @@ public class UserInterface extends Engine {
     public UserInterface(int height, int width, Menu menuObj, char symbolFrameTitlebar, char symbolMenuFrame) {
         this.frameTitle = menuObj.getMenuTitle();
         this.frameHeight = height;
-        this.frameWidth = (width * 3) - this.frameTitle.length();
+        this.frameWidth = (width * 3);
         this.object = menuObj;
         this.symbolFrameTitlebar = symbolFrameTitlebar;
         this.symbolMenuFrame = symbolMenuFrame;
@@ -37,7 +37,7 @@ public class UserInterface extends Engine {
     public void printInterface() {
 
         if (isAnyMenuItemLongerThanTitleBar(this.object)) {
-            this.frameWidth += this.frameWidth - this.longestMenuItemLength;
+            this.frameWidth += this.longestMenuItemLength - this.frameWidth;
 
         }
 
@@ -77,9 +77,9 @@ public class UserInterface extends Engine {
 
 
         System.out.print("\n" + symbol);
-        printSpaces(this.frameWidth - this.frameTitle.length());
+        printSpaces((this.frameWidth / 3));
         System.out.print(this.frameTitle);
-        printSpaces(this.frameWidth - this.frameTitle.length());
+        printSpaces((this.frameWidth / 3));
 
         System.out.println(symbol);
 
@@ -136,8 +136,8 @@ public class UserInterface extends Engine {
             }
         }
 
-        if ((this.frameWidth) < larger) {
-            this.longestMenuItemLength = larger;
+        if ((this.frameWidth) < larger + 6) {
+            this.longestMenuItemLength = larger + 6;
             return true;
         } else {
             return false;

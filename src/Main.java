@@ -16,7 +16,7 @@ public class Main extends Engine {
       test1.addMainMenuItem(new MenuItem("Quit"));
 
       //This Menu Item goes over the frame
-      test1.addMainMenuItem(new MenuItem("123456789"));
+      test1.addMainMenuItem(new MenuItem("1234567890123456789123456789"));
 
 /*
  * TODO:
