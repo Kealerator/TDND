@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 
 public class Menu extends Engine {
+
      public static enum menuType {
           MAIN, PROMPT, CONFIRM;
 
@@ -58,11 +59,11 @@ public class Menu extends Engine {
 
      // Initialize menu
      private void initMenu() {
-//          if (this.getMenuType().toString().equals("MAIN")) {
+          // if (this.getMenuType().toString().equals("MAIN")) {
 
-               // Creates a draw object for main Menu -object
-               this.UI = new UserInterface(10, this.menuTitle.length(), this);
- //         }
+          // Creates a draw object for main Menu -object
+          this.UI = new UserInterface(10, this.menuTitle.length(), this);
+          // }
      }
 
      // Draw Menu

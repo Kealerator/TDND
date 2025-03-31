@@ -4,19 +4,31 @@ public class Main extends Engine {
    public static void main(String[] args) {
 
       Menu test1 = new Menu("TERE!", Menu.menuType.MAIN);
-      Menu test2 = new Menu("TORE!", Menu.menuType.PROMPT);
+      Menu test2 = new Menu("Main Menu", Menu.menuType.MAIN);
 
 
 
 
       engLog.print();
 
-      test1.addMainMenuItem(new MenuItem("Start"));
+      test2.addMainMenuItem(new MenuItem("Start"));
       test1.addMainMenuItem(new MenuItem("Settings"));
       test1.addMainMenuItem(new MenuItem("Quit"));
-
       //This Menu Item goes over the frame
       test1.addMainMenuItem(new MenuItem("1234567890123456789123456789"));
+
+
+      test2.addMainMenuItem(new MenuItem("Starter"));
+      test2.addMainMenuItem(new MenuItem("Settings"));
+      test2.addMainMenuItem(new MenuItem("Quit"));
+      test2.addMainMenuItem(new MenuItem("Help"));
+
+      test1.printMenu();
+      test2.printMenu();
+
+
+
+
 
 /*
  * TODO:

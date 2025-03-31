@@ -37,7 +37,14 @@ public class UserInterface extends Engine {
     public void printInterface() {
 
         if (isAnyMenuItemLongerThanTitleBar(this.object)) {
+
             this.frameWidth += this.longestMenuItemLength - this.frameWidth;
+
+            if ((this.frameWidth - this.frameTitle.toString().length()) % 2 != 0) {
+
+                this.frameWidth++;
+                
+            }
 
         }
 
@@ -73,13 +80,10 @@ public class UserInterface extends Engine {
 
     private void printSidesFrameTitleBar(char symbol) {
 
-
-
-
         System.out.print("\n" + symbol);
-        printSpaces((this.frameWidth / 3));
+        printSpaces((this.frameWidth / 2) - this.frameTitle.toString().length());
         System.out.print(this.frameTitle);
-        printSpaces((this.frameWidth / 3));
+        printSpaces(this.frameWidth / 2);
 
         System.out.println(symbol);
 
