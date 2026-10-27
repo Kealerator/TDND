@@ -1,5 +1,3 @@
-EDIT: lol I forgot to erase the generated AI bullshit
-
 ---
 
 # TDND - Text-Based Dungeons and Dragons
